@@ -1,5 +1,3 @@
-#pragma once
-
 #include <mutex>
 
 template <class T>
@@ -55,3 +53,30 @@ class MySharedPtr {
         }
     }
 };
+
+#include <iostream>
+
+struct Test {
+    int value;
+    Test(int val) : value(val) {}
+    void print() { std::cout << "Value: " << value << std::endl; }
+};
+
+int main() {
+    // 测试构造函数和赋值运算符重载
+    MySharedPtr<Test> ptr1(new Test(5));
+    MySharedPtr<Test> ptr2(ptr1);
+    MySharedPtr<Test> ptr3 = ptr1;
+
+    // 测试解引用和成员访问运算符重载
+    (*ptr1).print();
+    ptr2->print();
+
+    // 测试指针交换
+    ptr1 = ptr3;
+
+    // 测试自引用
+    ptr1 = ptr1;
+
+    return 0;
+}

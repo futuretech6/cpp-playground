@@ -1,5 +1,3 @@
-#pragma once
-
 #include <cmath>
 #include <numeric>
 #include <string>
@@ -42,3 +40,15 @@ class MyRational {
         denominator /= gcd;
     }
 };
+
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    for (auto const &s : {"3.14", "10/14", "5"}) {
+        cout << MyRational(s) << endl;
+    }
+
+    return 0;
+}

@@ -1,5 +1,3 @@
-#pragma once
-
 #include <cstring>
 #include <istream>
 #include <ostream>
@@ -60,7 +58,7 @@ class MyString {
     MyString &operator=(const MyString &rhs);
 
     // Destructor
-    ~MyString() { delete str; }
+    ~MyString() { delete[] str; }
 };
 
 // Overloading the assignment operator
@@ -201,4 +199,37 @@ MyString::MyString(const MyString &source) {
 MyString::MyString(MyString &&source) {
     str        = source.str;
     source.str = nullptr;
+}
+
+#include <iostream>
+
+int main() {
+    using namespace std;
+    // 测试构造函数和赋值运算符重载
+    MyString str1("Hello");
+    MyString str2 = "World";
+    MyString str3;
+    str3 = str1;
+
+    cout << "str1: " << str1 << endl;
+    cout << "str2: " << str2 << endl;
+    cout << "str3: " << str3 << endl;
+
+    // 测试输入输出流重载
+    cout << "Enter a string: ";
+    cin >> str3;
+    cout << "You entered: " << str3 << endl;
+
+    // 测试字符串连接运算符重载
+    MyString str4 = str1 + str2;
+    cout << "str4: " << str4 << endl;
+
+    // 测试其他功能
+    cout << "Length of str1: " << str1.get_length() << endl;
+    str1.pop_bk();
+    cout << "After popping the last character, str1: " << str1 << endl;
+    str1.push_bk('!');
+    cout << "After pushing '!', str1: " << str1 << endl;
+
+    return 0;
 }

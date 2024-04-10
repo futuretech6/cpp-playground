@@ -1,5 +1,3 @@
-#pragma once
-
 #include <algorithm>
 #include <cstddef>
 #include <stdexcept>
@@ -78,3 +76,15 @@ class MyVector {
         vCapacity = n;
     }
 };
+
+#include <iostream>
+
+int main() {
+    auto v = MyVector(3, 1);
+
+    v.resize(4, 2);
+
+    v.push_back(3);
+
+    return 0;
+}
