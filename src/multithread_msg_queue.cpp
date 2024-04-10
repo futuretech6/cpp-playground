@@ -11,18 +11,17 @@ class MsgQueue {
   private:
     std::queue<T> dataQueue;
     std::mutex mtx;
-    int maxBatchSize;  // number of elem can be pushed at one lock-period
+    int const maxBatchSize;  // number of elem can be pushed at one lock-period
 
   public:
     MsgQueue(int maxBatchSize) : maxBatchSize(maxBatchSize) {}
 
     void push(std::vector<T> const &inputData) {
         for (size_t i = 0; i < inputData.size();) {
-            mtx.lock();
+            std::lock_guard<std::mutex> lock(mtx);
             for (auto count = maxBatchSize; count && i < inputData.size(); count--) {
                 dataQueue.push(inputData[i++]);
             }
-            mtx.unlock();
         }
     }
 
